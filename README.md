@@ -27,6 +27,14 @@ _The program uses a many to many relationship to track bands and the venues they
 | 10. Update Venue Name | Name: "Menashe Aaron's Table" | Name: "Menashe Aaron's" | Information must be malleable for different reasons. |
 | 11. Add Band to a Venue | Band Name: "Trees", Band ID: 1, Venue: "Menashe Aaron's", Venue ID: 2 | link band 1 to venue 2 | The purpose of this application is to link multiple relationships. |
 
+## Creating a database
+CREATE DATABASE band_tracker;
+
+USE band_tracker;
+
+CREATE TABLE bands(id INT PRIMARY KEY, name VARCHAR(255), band_manager VARCHAR(255), manager_phone VARCHAR(255), band_leader VARCHAR(255), band_leader_phone VARCHAR(255));
+
+CREATE TABLE venues(id INT PRIMARY KEY, name VARCHAR(255), phone_number VARCHAR(255), venue_contact VARCHAR(255));
 
 ## Known Bugs
 
