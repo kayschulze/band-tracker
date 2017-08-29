@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Aug 29, 2017 at 11:46 PM
+-- Generation Time: Aug 30, 2017 at 12:02 AM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.15
 
@@ -40,6 +40,18 @@ CREATE TABLE `bands` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bands_venues`
+--
+
+CREATE TABLE `bands_venues` (
+  `id` int(11) NOT NULL,
+  `band_id` int(11) DEFAULT NULL,
+  `venue_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `venues`
 --
 
@@ -58,6 +70,12 @@ CREATE TABLE `venues` (
 -- Indexes for table `bands`
 --
 ALTER TABLE `bands`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bands_venues`
+--
+ALTER TABLE `bands_venues`
   ADD PRIMARY KEY (`id`);
 
 --
