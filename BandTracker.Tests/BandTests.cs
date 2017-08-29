@@ -13,7 +13,7 @@ namespace BandTracker.Tests
             DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=band_tracker_test;";
         }
 
-        public Dispose()
+        public void Dispose()
         {
             Band.DeleteAll();
             Venue.DeleteAll();
@@ -24,7 +24,7 @@ namespace BandTracker.Tests
         {
             //Arrange, Act
             Band firstBand = new Band("Trees", "Nehemia", "503-555-7890", "Tayla", "206-555-6800", 1);
-            Band secondBAnd = new Band("Trees", "Nehemia", "503-555-7890", "Tayla", "206-555-6800", 1);
+            Band secondBand = new Band("Trees", "Nehemia", "503-555-7890", "Tayla", "206-555-6800", 1);
 
             //Assert
             Assert.AreEqual(firstBand, secondBand);

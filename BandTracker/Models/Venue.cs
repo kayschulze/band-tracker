@@ -11,7 +11,7 @@ namespace BandTracker.Models
         private string _phonenumber;
         private string _venuecontact;
 
-        public Venue(int id, string name, string phonenumber, string venuecontact)
+        public Venue(string name, string phonenumber, string venuecontact, int id = 0)
         {
             _id = id;
             _name = name;

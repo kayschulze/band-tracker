@@ -13,7 +13,7 @@ namespace BandTracker.Models
         private string _bandleader;
         private string _bandleaderphone;
 
-        public Band(int id, string name, string bandmanager, string managerphone, string bandleader, string bandleaderphone)
+        public Band(string name, string bandmanager, string managerphone, string bandleader, string bandleaderphone, int id = 0)
         {
             _id = id;
             _name = name;
