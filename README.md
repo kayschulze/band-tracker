@@ -25,16 +25,17 @@ _The program uses a many to many relationship to track bands and the venues they
 | 8. Find a Venue based on its ID | ID: 2 | Venue: "Menashe Aaron's Table" | Allows an integer to represent a Band object. |
 | 9. Update Band Name | Name: "Green Pointy Trees" | Name: "Trees" | Information must be malleable for different reasons of change. |
 | 10. Update Venue Name | Name: "Menashe Aaron's Table" | Name: "Menashe Aaron's" | Information must be malleable for different reasons. |
-| 11. Add Band to a Venue | Band Name: "Trees", Band ID: 1, Venue: "Menashe Aaron's", Venue ID: 2 | link band 1 to venue 2 | The purpose of this application is to link multiple relationships. |
+| 11. Add Venue to a Band and Get all Venues for that band. | Band Name: "Green Pointy Trees", Band ID: 1, Venue: "Menashe Aaron's", Venue ID: 2, Venue: "Beth Shalom's", Venue ID: 3  | link band 1 to venues 2 and 3 | The purpose of this application is to link multiple relationships. |
+| 12. Add Band to a Venue and get all Bands for that venue. | Venue Name: "Menashe Aaron's", Venue ID: 2, Band: "Trees", Band ID: 2, Band: "Cools", Band ID: 3 | link band 2 to venues 2 & 3 | The purpose of this application is to link multiple relationships. |
 
 ## Creating a database
 CREATE DATABASE band_tracker;
 
 USE band_tracker;
 
-CREATE TABLE bands(id INT PRIMARY KEY, name VARCHAR(255), band_manager VARCHAR(255), manager_phone VARCHAR(255), band_leader VARCHAR(255), band_leader_phone VARCHAR(255));
+CREATE TABLE bands(id serial PRIMARY KEY, name VARCHAR(255), band_manager VARCHAR(255), manager_phone VARCHAR(255), band_leader VARCHAR(255), band_leader_phone VARCHAR(255));
 
-CREATE TABLE venues(id INT PRIMARY KEY, name VARCHAR(255), phone_number VARCHAR(255), venue_contact VARCHAR(255));
+CREATE TABLE venues(id serial PRIMARY KEY, name VARCHAR(255), phone_number VARCHAR(255), venue_contact VARCHAR(255));
 
 ## Known Bugs
 

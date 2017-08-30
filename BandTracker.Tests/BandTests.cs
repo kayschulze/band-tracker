@@ -75,5 +75,28 @@ namespace BandTracker.Tests
             //Assert
             Assert.AreEqual(newBandName, result);
         }
+
+        [TestMethod]
+        public void GetVenues_ReturnsListOfVenuesForABand_Venues()
+        {
+            //Arrange
+            Band testBand = new Band("Green Pointy Trees", "Nehemia", "503-555-7890", "Tayla", "206-555-6800", 1);
+            testBand.Save();
+
+            Venue firstVenue = new Venue("Menashe Aaron's Table", "206-333-4444", "Ronald Roberts", 1);
+            firstVenue.Save();
+            Venue secondVenue = new Venue("Beth Shalom", "206-333-4444", "Rose Borodin", 2);
+            secondVenue.Save();
+
+            //Act
+            List<Venue> expectedVenueList = new List<Venue> {firstVenue, secondVenue};
+
+            testBand.AddVenue(firstVenue);
+            testBand.AddVenue(secondVenue);
+            List<Venue> resultVenueList = testBand.GetVenues();
+
+            //Assert
+            CollectionAssert.AreEqual(expectedVenueList, resultVenueList);
+        }
     }
 }
