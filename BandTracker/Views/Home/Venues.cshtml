@@ -1,0 +1,4 @@
+@foreach (var venue in Model)
+    {
+        <h3><a href="/venues/@venue.GetId()>"@venue.GetName()</a></h3>
+    }
