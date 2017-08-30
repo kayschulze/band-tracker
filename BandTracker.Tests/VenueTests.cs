@@ -44,5 +44,19 @@ namespace BandTracker.Tests
             //Assert
             CollectionAssert.AreEqual(expectedVenueList, resultVenueList);
         }
+
+        [TestMethod]
+        public void Find_FindsVenueInDatabaseFromId_Venue()
+        {
+            //Arrange
+            Venue testVenue = new Venue("Menashe Aaron's Table", "206-333-4444", "Ronald Roberts", 2);
+            testVenue.Save();
+
+            //Act
+            Venue foundVenue = Venue.Find(testVenue.GetId());
+
+            //Assert
+            Assert.AreEqual(testVenue, foundVenue);
+        }
     }
 }
