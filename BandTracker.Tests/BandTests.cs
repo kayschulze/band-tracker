@@ -98,5 +98,24 @@ namespace BandTracker.Tests
             //Assert
             CollectionAssert.AreEqual(expectedVenueList, resultVenueList);
         }
+
+        [TestMethod]
+        public void Delete_DeletesBandFromDatabase_BandList()
+        {
+            //Arrange
+            Band testBand1 = new Band("Green Pointy Trees", "Nehemia", "503-555-7890", "Tayla", "206-555-6800", 1);
+            testBand1.Save();
+
+            Band testBand2 = new Band("Mincha Choir", "206-555-6800", "Rose Borodin", "Carl Los", "206-888-7777", 3);
+            testBand2.Save();
+
+            //Act
+            Band.Delete(testBand1.GetId());
+            List<Band> resultBandsList = Band.GetAll();
+            List<Band> actualBandsList = new List<Band> {testBand2};
+
+            //Assert
+            CollectionAssert.AreEqual(actualBandsList, resultBandsList);
+        }
     }
 }
