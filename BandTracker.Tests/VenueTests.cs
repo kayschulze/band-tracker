@@ -98,5 +98,24 @@ namespace BandTracker.Tests
             //Assert
             CollectionAssert.AreEqual(expectedBandList, resultBandList);
         }
+
+        [TestMethod]
+        public void Delete_DeletesVenueFromDatabase_VenueList()
+        {
+            //Arrange
+            Venue testVenue1 = new Venue("Menashe Aaron's Table", "206-333-4444", "Ronald Roberts", 2);
+            testVenue1.Save();
+
+            Venue testVenue2 = new Venue("Beth Shalom's", "206-555-6800", "Rose Borodin", 3);
+            testVenue2.Save();
+
+            //Act
+            Venue.Delete(testVenue1.GetId());
+            List<Venue> resultVenuesList = Venue.GetAll();
+            List<Venue> actualVenuesList = new List<Venue> {testVenue2};
+
+            //Assert
+            CollectionAssert.AreEqual(actualVenuesList, resultVenuesList);
+        }
     }
 }

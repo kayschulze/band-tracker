@@ -27,6 +27,8 @@ _The program uses a many to many relationship to track bands and the venues they
 | 10. Update Venue Name | Name: "Menashe Aaron's Table" | Name: "Menashe Aaron's" | Information must be malleable for different reasons. |
 | 11. Add Venue to a Band and Get all Venues for that band. | Band Name: "Green Pointy Trees", Band ID: 1, Venue: "Menashe Aaron's", Venue ID: 2, Venue: "Beth Shalom's", Venue ID: 3  | link band 1 to venues 2 and 3 | The purpose of this application is to link multiple relationships. |
 | 12. Add Band to a Venue and get all Bands for that venue. | Venue Name: "Menashe Aaron's", Venue ID: 2, Band: "Trees", Band ID: 2, Band: "Cools", Band ID: 3 | link band 2 to venues 2 & 3 | The purpose of this application is to link multiple relationships. |
+| 13. Delete Venue | Name: "Menashe Aaron's Table", Phone Number: "206-333-4444", Venue Contact: "Ronald Roberts" id = 2 | Venue Deleted. | It is necessary to be able to delete individual venue records. |
+| 14. Delete Band | Name: "Trees", Manager: "Nehemia", Manager Phone: "503-555-7890", Band Leader: "Tayla", Band Leader Phone: "206-555-6800" | Band Deleted. | It is necessary to be able to delete individual band records. |
 
 ## Creating a database
 CREATE DATABASE band_tracker;

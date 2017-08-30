@@ -277,6 +277,26 @@ namespace BandTracker.Models
             }
         }
 
+        public static void Delete(int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            MySqlCommand cmd = new MySqlCommand("DELETE FROM venues WHERE id = @venueId; DELETE FROM bands_venues WHERE venue_id = @venueId;", conn);
+
+            MySqlParameter venueIdParameter = new MySqlParameter();
+            venueIdParameter.ParameterName = "@venueId";
+            venueIdParameter.Value = id;
+            cmd.Parameters.Add(venueIdParameter);
+
+            cmd.ExecuteNonQuery();
+
+            if (conn != null)
+            {
+                conn.Close();
+            }
+        }
+
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
