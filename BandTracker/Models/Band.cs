@@ -196,6 +196,34 @@ namespace BandTracker.Models
             return newBand;
         }
 
+        public void UpdateBandName(string newBandName)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE bands SET name = @newBandName WHERE id = @findId;";
+
+            MySqlParameter findId = new MySqlParameter();
+            findId.ParameterName = "@findId";
+            findId.Value = _id;
+            cmd.Parameters.Add(findId);
+
+            MySqlParameter bandNameParameter = new MySqlParameter();
+            bandNameParameter.ParameterName = "@newBandName";
+            bandNameParameter.Value = newBandName;
+            cmd.Parameters.Add(bandNameParameter);
+
+            cmd.ExecuteNonQuery();
+            _name = newBandName;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
