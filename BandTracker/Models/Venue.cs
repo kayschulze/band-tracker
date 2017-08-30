@@ -165,6 +165,34 @@ namespace BandTracker.Models
             return newVenue;
         }
 
+        public void UpdateVenueName(string newVenueName)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE venues SET name = @newVenueName WHERE id = @findId;";
+
+            MySqlParameter findId = new MySqlParameter();
+            findId.ParameterName = "@findId";
+            findId.Value = _id;
+            cmd.Parameters.Add(findId);
+
+            MySqlParameter venueNameParameter = new MySqlParameter();
+            venueNameParameter.ParameterName = "@newVenueName";
+            venueNameParameter.Value = newVenueName;
+            cmd.Parameters.Add(venueNameParameter);
+
+            cmd.ExecuteNonQuery();
+            _name = newVenueName;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
