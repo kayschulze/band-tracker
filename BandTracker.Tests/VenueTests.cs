@@ -29,5 +29,20 @@ namespace BandTracker.Tests
             //Assert
             Assert.AreEqual(firstVenue, secondVenue);
         }
+
+        [TestMethod]
+        public void Save_SavesVenueInformationToDatabase_VenueList()
+        {
+            //Arrange
+            Venue expectedVenue = new Venue("Menashe Aaron's Table", "206-333-4444", "Ronald Roberts", 2);
+            expectedVenue.Save();
+
+            //Act
+            List<Venue> resultVenueList = Venue.GetAll();
+            List<Venue> expectedVenueList = new List<Venue> {expectedVenue};
+
+            //Assert
+            CollectionAssert.AreEqual(expectedVenueList, resultVenueList);
+        }
     }
 }
