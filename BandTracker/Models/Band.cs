@@ -84,12 +84,7 @@ namespace BandTracker.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO bands (name, band_manager, manager_phone, band_leader, band_leader_phone) VALUES (@name, @bandManager, @managerPhone, @bandLeader, @bandLeaderPhone);";
-
-            // MySqlParameter idParameter = new MySqlParameter();
-            // idParameter.ParameterName = "@id";
-            // idParameter.Value = _id;
-            // cmd.Parameters.Add(idParameter);
+            cmd.CommandText = @"INSERT INTO bands(name, band_manager, manager_phone, band_leader, band_leader_phone) VALUES (@name, @bandManager, @managerPhone, @bandLeader, @bandLeaderPhone);";
 
             MySqlParameter nameParameter = new MySqlParameter();
             nameParameter.ParameterName = "@name";
@@ -108,12 +103,12 @@ namespace BandTracker.Models
 
             MySqlParameter bandLeaderParameter = new MySqlParameter();
             bandLeaderParameter.ParameterName = "@bandLeader";
-            bandLeaderParameter.Value = _managerphone;
+            bandLeaderParameter.Value = _bandleader;
             cmd.Parameters.Add(bandLeaderParameter);
 
             MySqlParameter bandLeaderPhoneParameter = new MySqlParameter();
             bandLeaderPhoneParameter.ParameterName = "@bandLeaderPhone";
-            bandLeaderPhoneParameter.Value = _bandleader;
+            bandLeaderPhoneParameter.Value = _bandleaderphone;
             cmd.Parameters.Add(bandLeaderPhoneParameter);
 
             cmd.ExecuteNonQuery();
