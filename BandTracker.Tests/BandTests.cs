@@ -29,5 +29,20 @@ namespace BandTracker.Tests
             //Assert
             Assert.AreEqual(firstBand, secondBand);
         }
+
+        [TestMethod]
+        public void Save_SavesBandInformationToDatabase_BandList()
+        {
+            //Arrange
+            Band expectedBand = new Band("Trees", "Nehemia", "503-555-7890", "Tayla", "206-555-6800", 1);
+            expectedBand.Save();
+
+            //Act
+            List<Band> resultBandList = Band.GetAll();
+            List<Band> expectedBandList = new List<Band> {expectedBand};
+
+            //Assert
+            CollectionAssert.AreEqual(expectedBandList, resultBandList);
+        }
     }
 }

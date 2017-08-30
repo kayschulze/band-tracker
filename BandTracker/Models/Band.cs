@@ -79,6 +79,86 @@ namespace BandTracker.Models
             return this.GetName().GetHashCode();
         }
 
+        public void Save()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO bands (name, band_manager, manager_phone, band_leader, band_leader_phone) VALUES (@name, @bandManager, @managerPhone, @bandLeader, @bandLeaderPhone);";
+
+            // MySqlParameter idParameter = new MySqlParameter();
+            // idParameter.ParameterName = "@id";
+            // idParameter.Value = _id;
+            // cmd.Parameters.Add(idParameter);
+
+            MySqlParameter nameParameter = new MySqlParameter();
+            nameParameter.ParameterName = "@name";
+            nameParameter.Value = _name;
+            cmd.Parameters.Add(nameParameter);
+
+            MySqlParameter bandManagerParameter = new MySqlParameter();
+            bandManagerParameter.ParameterName = "@bandManager";
+            bandManagerParameter.Value = _bandmanager;
+            cmd.Parameters.Add(bandManagerParameter);
+
+            MySqlParameter bandManagerPhoneParameter = new MySqlParameter();
+            bandManagerPhoneParameter.ParameterName = "@managerPhone";
+            bandManagerPhoneParameter.Value = _managerphone;
+            cmd.Parameters.Add(bandManagerPhoneParameter);
+
+            MySqlParameter bandLeaderParameter = new MySqlParameter();
+            bandLeaderParameter.ParameterName = "@bandLeader";
+            bandLeaderParameter.Value = _managerphone;
+            cmd.Parameters.Add(bandLeaderParameter);
+
+            MySqlParameter bandLeaderPhoneParameter = new MySqlParameter();
+            bandLeaderPhoneParameter.ParameterName = "@bandLeaderPhone";
+            bandLeaderPhoneParameter.Value = _bandleader;
+            cmd.Parameters.Add(bandLeaderPhoneParameter);
+
+            cmd.ExecuteNonQuery();
+            _id = (int) cmd.LastInsertedId;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
+
+        public static List<Band> GetAll()
+        {
+            List<Band> allBands = new List<Band> {};
+
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = "@SELECT * FROM bands;";
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while(rdr.Read())
+            {
+                int BandId = rdr.GetInt32(0);
+                string BandName = rdr.GetString(1);
+                string BandManager = rdr.GetString(2);
+                string BandManagerPhone = rdr.GetString(3);
+                string BandLeader = rdr.GetString(4);
+                string BandLeaderPhone = rdr.GetString(5);
+
+                Band newBand = new Band(BandName, BandManager, BandManagerPhone, BandLeader, BandLeaderPhone, BandId);
+
+                allBands.Add(newBand);
+            }
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+
+            return allBands;
+        }
+
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
