@@ -128,7 +128,7 @@ namespace BandTracker.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = "@SELECT * FROM bands;";
+            cmd.CommandText = @"SELECT * FROM bands;";
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())

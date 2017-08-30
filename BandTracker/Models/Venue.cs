@@ -103,7 +103,7 @@ namespace BandTracker.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = "@SELECT * FROM venues;";
+            cmd.CommandText = @"SELECT * FROM venues;";
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
