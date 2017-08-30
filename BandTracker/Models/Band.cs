@@ -154,6 +154,48 @@ namespace BandTracker.Models
             return allBands;
         }
 
+        public static Band Find(int id)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM bands WHERE id = (@bandId);";
+
+            MySqlParameter bandIdParameter = new MySqlParameter();
+            bandIdParameter.ParameterName = "@bandId";
+            bandIdParameter.Value = id;
+            cmd.Parameters.Add(bandIdParameter);
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            int bandId = 0;
+            string bandName = "";
+            string bandManager = "";
+            string bandManagerPhone = "";
+            string bandLeader = "";
+            string bandLeaderPhone = "";
+
+            while(rdr.Read())
+            {
+                bandId = rdr.GetInt32(0);
+                bandName = rdr.GetString(1);
+                bandManager = rdr.GetString(2);
+                bandManagerPhone = rdr.GetString(3);
+                bandLeader = rdr.GetString(4);
+                bandLeaderPhone = rdr.GetString(5);
+            }
+
+            Band newBand = new Band(bandName, bandManager, bandManagerPhone, bandLeader, bandLeaderPhone, bandId);
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+
+            return newBand;
+        }
+
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
