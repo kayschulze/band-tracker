@@ -77,7 +77,7 @@ namespace BandTracker.Tests
         }
 
         [TestMethod]
-        public void GetBands_ReturnsListOfBandsForABand_Bands()
+        public void GetBands_ReturnsListOfBandsForAVenue_Bands()
         {
             //Arrange
             Venue testVenue = new Venue("Menashe Aaron's Table", "206-333-4444", "Ronald Roberts", 2);

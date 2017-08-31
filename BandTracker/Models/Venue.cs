@@ -159,7 +159,8 @@ namespace BandTracker.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT band_id FROM bands_venues WHERE venue_id = @venueId;";
+            cmd.CommandText = @"SELECT bands.* FROM venues
+             JOIN bands_venues ON (venues.id = bands_venues.venue_id) JOIN bands ON (bands_venues.band_id = bands.id) WHERE venues.id = @venueId;";
 
             MySqlParameter venueIdParameter = new MySqlParameter();
             venueIdParameter.ParameterName = "@venueId";
@@ -167,41 +168,23 @@ namespace BandTracker.Models
             cmd.Parameters.Add(venueIdParameter);
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
-            List<int> bandIds = new List<int> {};
-            while(rdr.Read())
-            {
-                int bandId = rdr.GetInt32(0);
-                bandIds.Add(bandId);
-            }
-            rdr.Dispose();
 
             List<Band> bands = new List<Band> {};
-            foreach (int bandId in bandIds)
+
+            while(rdr.Read())
             {
-                var bandQuery = conn.CreateCommand() as MySqlCommand;
-                bandQuery.CommandText = @"SELECT * FROM bands WHERE id = @bandId;";
+                int thisBandId = rdr.GetInt32(0);
+                string bandName = rdr.GetString(1);
+                string thisBandManager = rdr.GetString(2);
+                string bandManagerPhoneNumber = rdr.GetString(3);
+                string thisBandLeader = rdr.GetString(4);
+                string bandLeaderPhoneNumber = rdr.GetString(5);
 
-                MySqlParameter bandIdParameter = new MySqlParameter();
-                bandIdParameter.ParameterName = "@bandId";
-                bandIdParameter.Value = bandId;
-                bandQuery.Parameters.Add(bandIdParameter);
+                Band newBand = new Band(bandName, thisBandManager, bandManagerPhoneNumber, thisBandLeader, bandLeaderPhoneNumber, thisBandId);
 
-                var bandQueryRdr = bandQuery.ExecuteReader() as MySqlDataReader;
-                while(bandQueryRdr.Read())
-                {
-                    int thisBandId = bandQueryRdr.GetInt32(0);
-                    string bandName = bandQueryRdr.GetString(1);
-                    string thisBandManager = bandQueryRdr.GetString(2);
-                    string bandManagerPhoneNumber = bandQueryRdr.GetString(3);
-                    string thisBandLeader = bandQueryRdr.GetString(4);
-                    string bandLeaderPhoneNumber = bandQueryRdr.GetString(5);
-
-                    Band newBand = new Band(bandName, thisBandManager, bandManagerPhoneNumber, thisBandLeader, bandLeaderPhoneNumber, thisBandId);
-
-                    bands.Add(newBand);
-                }
-                bandQueryRdr.Dispose();
+                bands.Add(newBand);
             }
+
             conn.Close();
             if (conn != null)
             {

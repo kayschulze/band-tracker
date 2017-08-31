@@ -186,7 +186,8 @@ namespace BandTracker.Models
             conn.Open();
 
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT venue_id FROM bands_venues WHERE band_id = @bandId;";
+            cmd.CommandText = @"SELECT venues.* FROM bands
+             JOIN bands_venues ON (bands.id = bands_venues.band_id) JOIN venues ON (bands_venues.venue_id = venues.id) WHERE bands.id = @bandId;";
 
             MySqlParameter bandIdParameter = new MySqlParameter();
             bandIdParameter.ParameterName = "@bandId";
@@ -194,38 +195,21 @@ namespace BandTracker.Models
             cmd.Parameters.Add(bandIdParameter);
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
-            List<int> venueIds = new List<int> {};
-            while(rdr.Read())
-            {
-                int venueId = rdr.GetInt32(0);
-                venueIds.Add(venueId);
-            }
-            rdr.Dispose();
 
             List<Venue> venues = new List<Venue> {};
-            foreach (int venueId in venueIds)
+
+            while(rdr.Read())
             {
-                var venueQuery = conn.CreateCommand() as MySqlCommand;
-                venueQuery.CommandText = @"SELECT * FROM venues WHERE id = @venueId;";
+                int thisVenueId = rdr.GetInt32(0);
+                string venueName = rdr.GetString(1);
+                string thisVenueContact= rdr.GetString(2);
+                string venuePhoneNumber = rdr.GetString(3);
 
-                MySqlParameter venueIdParameter = new MySqlParameter();
-                venueIdParameter.ParameterName = "@venueId";
-                venueIdParameter.Value = venueId;
-                venueQuery.Parameters.Add(venueIdParameter);
+                Venue newVenue = new Venue(venueName, thisVenueContact, venuePhoneNumber, thisVenueId);
 
-                var venueQueryRdr = venueQuery.ExecuteReader() as MySqlDataReader;
-                while(venueQueryRdr.Read())
-                {
-                    int thisVenueId = venueQueryRdr.GetInt32(0);
-                    string venueName = venueQueryRdr.GetString(1);
-                    string thisVenueContact= venueQueryRdr.GetString(2);
-                    string venuePhoneNumber = venueQueryRdr.GetString(3);
-
-                    Venue newVenue = new Venue(venueName, thisVenueContact, venuePhoneNumber, thisVenueId);
-                    venues.Add(newVenue);
-                }
-                venueQueryRdr.Dispose();
+                venues.Add(newVenue);
             }
+
             conn.Close();
             if (conn != null)
             {
