@@ -37,6 +37,16 @@ button {
     border-radius: 15px;
     margin: 10px;
     font-family: 'Lobster Two', cursive;
+    background-color: #f7e1c5;
+}
+
+a {
+    color: #c39ee2;
+    border: thin;
+}
+
+a:hover {
+    color: #e58c82;
 }
 
 .stage {
@@ -45,8 +55,15 @@ button {
 
 .menufoot {
     text-align: center;
+    color: #55039e;
+    border: thin;
+    padding-top: 10px;
 }
 
 .welcome {
     min-height: 150px;
+}
+
+.menuitem {
+    padding: 15px;
 }
