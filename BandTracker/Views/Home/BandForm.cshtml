@@ -1,0 +1,24 @@
+@{
+    Layout = "_Layout";
+}
+
+<h2>Add A New Band</h2>
+
+<form action="/bands/add" method="post">
+    <label for="band-name">Band Name:</label>
+    <input id="band-name" name="band-name" type="text">
+
+    <label for="band-manager">Band Manager:</label>
+    <input id="band-manager" name="band-manager" type="text">
+
+    <label for="band-manager-phone">Band Manager Phone:</label>
+    <input id="band-manager-phone" name="band-manager-phone" type="text">
+
+    <label for="band-leader">Band Leader:</label>
+    <input id="band-leader" name="band-leader" type="text">
+
+    <label for="band-leader-phone">Band Leader Phone:</label>
+    <input id="band-leader-phone" name="band-leader-phone" type="text">
+
+    <button type="submit">Add</button>
+</form>
