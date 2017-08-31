@@ -57,9 +57,17 @@ namespace BandTracker.Controllers
             return View(model);
         }
 
-        //Edit Venue
-        [HttpPost("/venues/{id}/edit")]
+        //Edit Venue Get
+        [HttpGet("/venues/{id}/edit")]
         public ActionResult EditVenue(int id)
+        {
+            Venue thisVenue = Venue.Find(id);
+            return View(thisVenue);
+        }
+
+        //Edit Venue Post
+        [HttpPost("/venues/{id}/updated")]
+        public ActionResult EditedVenue(int id)
         {
             Venue thisVenue = Venue.Find(id);
             thisVenue.UpdateVenueName(Request.Form["new-venue-name"]);
@@ -136,9 +144,17 @@ namespace BandTracker.Controllers
             return View(model);
         }
 
-        //Edit Band
-        [HttpPost("/bands/{id}/edit")]
+        //Edit Band Get
+        [HttpGet("/bands/{id}/edit")]
         public ActionResult EditBand(int id)
+        {
+            Band newBand = Band.Find(id);
+            return View(newBand);
+        }
+
+        //Edit Band Post
+        [HttpPost("/bands/{id}/updated")]
+        public ActionResult EditedBand(int id)
         {
             Band thisBand = Band.Find(id);
             thisBand.UpdateBandName(Request.Form["new-band-name"]);
@@ -157,7 +173,7 @@ namespace BandTracker.Controllers
             model.Add("venue", newVenue);
             model.Add("band", newBand);
 
-            return View();
+            return View(model);
         }
 
         //Band Deleted

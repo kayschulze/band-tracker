@@ -2,10 +2,10 @@
     Layout = "_Layout";
 }
 
-<h2>Edit Band Name</h2>
-<form action="/bands/@Model.GetId()/edit" method="post">
-    <label for="name">Name:</label>
-    <input type="text" name="new-band-name" value=@"Model.GetName()">
+<h2>Edit Band Name: @Model.GetName()</h2>
+<form action="/bands/@Model.GetId()/updated" method="post">
+    <label for="name">Name:  </label>
+    <input type="text" name="new-band-name" value="@Model.GetName()">
 
     <button type="submit">Edit</button>
 </form>

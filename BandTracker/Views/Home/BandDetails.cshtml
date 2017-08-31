@@ -16,7 +16,7 @@
 }
 
 <h4>Add a venue for this band:</h4>
-<form action="/bands/add_venue" method="post">
+<form action="/bands/@Model["band"].GetId()/add_venue" method="post">
     <input id="band-id" name="band-id" type="hidden" value="@Model["band"].GetId()">
     <label for="venue-id">Select a Venue</label>
     <select id="venue-id" name="venue-id" type="text">
@@ -27,3 +27,7 @@
     </select>
     <button type="submit">Add</button>
 </form>
+
+<button type="submit"><a href="/bands/@Model["band"].GetId()/edit">Edit Band</a></button>
+
+<button type="submit"><a href="/bands/@Model["band"].GetId()/delete">Delete Band</a></button>
